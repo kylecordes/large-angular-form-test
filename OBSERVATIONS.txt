@@ -1,0 +1,25 @@
+I created this repo for a small simple test of a reported issue on Angular, link below, about memory use by large forms.
+
+https://github.com/angular/angular/issues/8946
+
+I'm running on MacOS 10.12.1, Retina MBP. Chrome 55.0.2883.87 (64-bit).
+
+First I created a fresh new project, using CLI. Unfortunately that means there's a bunch of CLI complexity in the way of testing the effect of project size on billed tooling resource consumption. But this item is only about Angular itself, and I think the results of the running Angular app should be about the same regardless of the details of the build tooling.
+
+To measure consumption in Chrome, I started with a fresh tab each time. This seemed to yield a repeatable result, while automatic reloading of new code in the same tab showed a steadily increasing result which would invalidate the measurements here.
+
+
+Initial commit, as created by CLI beta.21:
+
+Chrome task manager: 94 MB
+
+
+With 500 fields:
+
+Chrome task manager: 184 MB
+
+
+It seems to me that 90 MB is quite a bit to add just to have 500 text fields on the screen. But I have no sense (and did not attempt to test) how much of this was from Chrome versus Angular.
+
+Someone interested in digging in further (probably worthwhile only if the core team considers these numbers big enough to potentially take action on) could investigate the extent to which just adding the dominant elements with no data binding consumes memory.
+
